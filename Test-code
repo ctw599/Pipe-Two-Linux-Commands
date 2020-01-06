@@ -23,9 +23,6 @@ int main()
       fprintf(fout, "%d", occur);
      }
     else
-    {
-    fprintf(fout, "error, "%d", occur);
-    }
 fclose(fin);
 fclose(fout);
 return 0;
