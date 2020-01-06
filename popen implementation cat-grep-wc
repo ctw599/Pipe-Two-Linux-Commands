@@ -2,53 +2,49 @@
 #include <string.h>
 #include <stdlib.h>
 
-FILE* fin;
-
 int main()
-
 {
-  char buffer[10000];
-  char word[100];
-  char user[100];
-  char str[150];
-  int YesNo;
-  int woo = 0;
+ char buffer[10000];
+ char word[100];
+ char user[100];
+ char str[150];
+ int YesNo;
 	
-  printf("Enter your search term: ");
-  scanf("%s", user);
-  printf("If this is a character in the play press '1' otherwise press '0': ");
-  scanf("%d", &YesNo);
+ printf("Enter your search term: ");
+ scanf("%s", user);
+ printf("If this is a character in the play press '1' otherwise press '0': ");
+ scanf("%d", &YesNo);
        
-  /* two stream pointers-one to the reading side and one to the writing
- 	  side */
-  FILE *inPipe;
-  FILE *outPipe;
-  char buff[100];
-  int i;
+ /* two stream pointers-one to the reading side and one to the writing
+    side */
+ FILE *inPipe;
+ FILE *outPipe;
+ char buff[100];
+ int i;
 
-	/* if its a character in the play, set to uppercase */
-	if (YesNo)
-	{
-	for(i = 0; user[i]!='\0'; i++)
+ /* if its a character in the play, set to uppercase */
+ if (YesNo)
+  {
+   for(i = 0; user[i]!='\0'; i++)
+ 	{
+	 if (user[i] >= 'a' && user[i] <= 'z')
 	  {
-	    if (user[i] >= 'a' && user[i] <= 'z')
-	      {
 		user[i] = user[i]-32;
-	      }
 	  }
-        
 	}
-	/* reading a file to the stream */
-   inPipe = popen("cat macbeth.docx", "r");
-   if (inPipe == NULL)
-        {
-         perror("popen");
-         exit(1);
-        }
-	/* concatenating string to incorporate user's search term */
-	strcpy(str, "grep -o ");
-	strcat(str, user);
-	strcat(str, " macbeth.docx|wc -l");
+        
+   }
+  /* reading a file to the stream */
+  inPipe = popen("cat macbeth.docx", "r");
+  if (inPipe == NULL)
+    {
+      perror("popen");
+      exit(1);
+     }
+  /* concatenating string to incorporate user's search term */
+  strcpy(str, "grep -o ");
+  strcat(str, user);
+  strcat(str, " macbeth.docx|wc -l");
 
   /* writing from the stream (collecting all words that match search term
      and finding number of terms */
@@ -67,6 +63,6 @@ int main()
 
        
 
-	/* Close the pipes */
+  /* Close the pipes */
   pclose(inPipe);
   pclose(outPipe);
