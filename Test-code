@@ -2,28 +2,27 @@
 #include <stdio.h>
 int main()
 {
-FILE* fin;
-FILE* fout;
-char buffer[10000];
-char word[100];
-int occur = 0;
-printf("Word searched in file: ");
-scanf("%s", word);
-fin = fopen("shakespeare.txt","r");
-fout = fopen("codeTest", "w");
-if (fin != NULL && fout != NULL)
-{
-while(fscanf(fin, "%s",buffer)!= EOF)
-{
-  if((strstr(buffer, word)) != NULL)
+  FILE* fin;
+  FILE* fout;
+  char buffer[10000];
+  char word[100];
+  int occur = 0;
+  printf("Word searched in file: ");
+  scanf("%s", word);
+  fin = fopen("shakespeare.txt","r");
+  fout = fopen("codeTest", "w");
+  if (fin != NULL && fout != NULL)
     {
-      occur++;
-    }
-
-}
-fprintf(fout, "%d", occur);
+      while(fscanf(fin, "%s",buffer)!= EOF)
+      {
+        if((strstr(buffer, word)) != NULL)
+         {
+          occur++;
+         }
+       }
+      fprintf(fout, "%d", occur);
+     }
 fclose(fin);
 fclose(fout);
-}
- return 0;
+return 0;
 }
