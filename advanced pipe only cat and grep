@@ -27,7 +27,7 @@ int main()
 	      close(1);
         dup(pipefd[1]);
         close(pipefd[0]);
-        execlp("/bin/cat", "cat", "shakespeare.txt", NULL);
+        execlp("/bin/cat", "cat", "macbeth.docx", NULL);
 	      int status;
 	      pid_t wpid = waitpid(pid, &status, 0);
     }
