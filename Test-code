@@ -11,10 +11,14 @@ int main()
   scanf("%s", word);
   fin = fopen("shakespeare.txt","r");
   fout = fopen("codeTest", "w");
+  
+  /* search for the word using fopen */
   if (fin != NULL && fout != NULL)
     {
       while(fscanf(fin, "%s",buffer)!= EOF)
       {
+      
+      /* compare user word to words in text and if they are the same increment occurence */
         if((strstr(buffer, word)) != NULL)
          {
           occur++;
