@@ -1,0 +1,80 @@
+#include <stdio.h> // Voor verschillende I/O's, macro's, declaraties.
+#include <stdlib.h> // Om de system call te activeren.
+#include <unistd.h> // Laden van constanten en types.
+#include "sys/wait.h"
+
+int main()
+{
+    pid_t pid;
+    
+    int pipefd[4];
+    pipe(pipefd);
+    pipe(pipefd + 2);
+    pid = fork();
+
+    if(pid==-1){
+        perror("pipe");
+        exit(EXIT_FAILURE);
+    }
+
+    if(pid == 0){
+	
+	close(1);
+        dup(pipefd[1]);
+        close(pipefd[1]);
+	close(pipefd[2]);
+	close(pipefd[3]);
+	close(pipefd[0]);
+	
+        execlp("/bin/cat", "cat", "macbeth.docx", NULL);
+	}
+	
+    
+    else
+	{
+	  if(fork() == 0)
+	    {
+	      close(0);
+	      
+	      dup(pipefd[0]);
+	      close(1);
+	      dup(pipefd[3]);
+	      
+	      close(pipefd[0]);
+	      close(pipefd[1]);
+	      close(pipefd[2]);
+	      close(pipefd[3]);
+	      
+	
+	      execlp("/bin/grep", "grep -o", "fate", NULL);
+	    }
+	  else
+	    {
+	      if(fork() == 0)
+		{
+		  dup(pipefd[2]);
+		  close(0);
+		  close(pipefd[0]);
+		  close(pipefd[1]);
+		  close(pipefd[2]);
+		  close(pipefd[3]);
+		  execlp("/usr/bin/wc", "wc -l", "grep", NULL);
+		}
+		  
+	    }
+	}
+	      
+         close(pipefd[0]);
+	 close(pipefd[1]);
+         close(pipefd[2]);
+         close(pipefd[3]);
+	 int status;
+	 int i;
+	 for(i = 0; i < 3; i++)
+	   {
+	     wait(&status);
+	   }
+
+	return 0;
+	
+}
