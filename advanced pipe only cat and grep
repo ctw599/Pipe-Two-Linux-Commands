@@ -8,8 +8,10 @@ int main()
     pid_t pid;
     int pipefd[2];
     pipe(pipefd);
-    pid = fork();
-
+    char word[100];
+    printf("Type a word: ");
+    scanf("%s", word);    pid = fork();
+   
     if(pid==-1)
     {
         perror("pipe");
@@ -20,7 +22,7 @@ int main()
 	      close(0);
         dup(pipefd[0]);
         close(pipefd[1]);
-        execlp("/bin/grep","grep -o|wc -l", "fate", NULL);
+        execlp("/bin/grep","grep -o", word, NULL);
 	}
     else
 	{
