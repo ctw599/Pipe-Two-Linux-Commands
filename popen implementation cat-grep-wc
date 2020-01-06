@@ -10,22 +10,21 @@ int main()
   char buffer[10000];
   char word[100];
   char user[100];
-	char str[150];
-	int YesNo;
-	int woo = 0;
+  char str[150];
+  int YesNo;
+  int woo = 0;
 	
   printf("Enter your search term: ");
-	scanf("%s", user);
-	printf("If this is a character in the play press '1' otherwise press '0': ");
-	scanf("%d", &YesNo);
+  scanf("%s", user);
+  printf("If this is a character in the play press '1' otherwise press '0': ");
+  scanf("%d", &YesNo);
        
   /* two stream pointers-one to the reading side and one to the writing
  	  side */
   FILE *inPipe;
   FILE *outPipe;
   char buff[100];
-	int numWords;
-	int i;
+  int i;
 
 	/* if its a character in the play, set to uppercase */
 	if (YesNo)
@@ -40,7 +39,7 @@ int main()
         
 	}
 	/* reading a file to the stream */
-   inPipe = popen("cat shakespeare.txt", "r");
+   inPipe = popen("cat macbeth.docx", "r");
    if (inPipe == NULL)
         {
          perror("popen");
@@ -49,10 +48,10 @@ int main()
 	/* concatenating string to incorporate user's search term */
 	strcpy(str, "grep -o ");
 	strcat(str, user);
-	strcat(str, " shakespeare.txt|wc -l");
+	strcat(str, " macbeth.docx|wc -l");
 
-	/* writing from the stream (collecting all words that match search term
-	 and finding number of terms */
+  /* writing from the stream (collecting all words that match search term
+     and finding number of terms */
    outPipe = popen(str, "w");
    if (outPipe == NULL)
         {
