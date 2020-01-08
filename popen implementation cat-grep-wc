@@ -47,7 +47,7 @@ int main()
   strcat(str, " macbeth.docx|wc -l");
 
   /* writing from the stream (collecting all words that match search term
-     and finding number of terms */
+     and finding number of terms) */
    outPipe = popen(str, "w");
    if (outPipe == NULL)
         {
