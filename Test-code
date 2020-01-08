@@ -24,7 +24,7 @@ int main()
           occur++;
          }
        }
-      fprintf(fout, "%d", occur);
+      fprintf(fout, "Your word appeared %d times.", occur);
      }
     else
 fclose(fin);
