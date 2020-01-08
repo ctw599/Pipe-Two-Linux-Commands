@@ -4,7 +4,6 @@
 
 int main()
 {
- char buffer[10000];
  char word[100];
  char user[100];
  char str[150];
@@ -19,7 +18,7 @@ int main()
     side */
  FILE *inPipe;
  FILE *outPipe;
- char buff[100];
+ char buff[1000];
  int i;
 
  /* if its a character in the play, set to uppercase */
